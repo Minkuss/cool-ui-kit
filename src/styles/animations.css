@@ -1,0 +1,45 @@
+/* Global animations for UI Kit components */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+.ui-button {
+  font-family: inherit;
+  outline: none;
+}
+
+.ui-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
