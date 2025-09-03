@@ -1,5 +1,5 @@
 {
-  "name": "@yourcompany/react-ui-kit",
+  "name": "react-ui-kit",
   "version": "1.0.0",
   "description": "React UI Kit with TypeScript, Storybook, and Design Tokens",
   "main": "dist/index.js",
