@@ -1,6 +1,7 @@
-import React, {forwardRef} from "react";
+import React, {forwardRef, useState} from "react";
 import {useTheme} from "@/theme/ThemeProvider";
 import {getBorderRadiusValue, getColorValue, getSpacingValue} from "@/utils/themeUtils";
+import '../../styles/animations.css';
 
 export type TextInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type TextInputColor = 'primary' | 'secondary' | 'success' | 'error' | 'warning';
@@ -37,16 +38,32 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(({
 }, ref) => {
     const { theme } = useTheme();
 
+    const [isHovered, setIsHovered] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+
+    const resetInputStyles: React.CSSProperties = {
+        border: 'none',
+        backgroundColor: 'transparent',
+        outline: 'none',
+    };
+
+    const inputStyle = {
+        ...resetInputStyles,
+        border: isFocused ? 'none' : 'none',
+        backgroundColor: isHovered ? 'transparent' : 'transparent',
+        outline: isFocused ? 'none' : 'none',
+    };
+
     const getTextInputStyles = (): React.CSSProperties => {
         const baseStyles: React.CSSProperties = {
             display: 'inline-flex',
-            // border: 'none',
-            cursor: disabled || loading ? 'not-allowed' : 'text',
+            alignItems: 'center',
+            cursor: disabled ? 'not-allowed' : 'text',
             fontFamily: theme.typography.fontFamily.sans.join(', '),
             fontWeight: theme.typography.fontWeight.normal,
             width: fullWidth ? '100%' : 'auto',
-            opacity: disabled || loading ? 0.6 : 1,
-            padding: `${getSpacingValue(theme, '1')} ${getSpacingValue(theme, '2')}`,
+            padding: '0 5px',
+            opacity: disabled ? 0.6 : 1,
             transition: 'all 0.2s ease-in-out',
             position: 'relative',
             ...style,
@@ -81,15 +98,10 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(({
         };
 
         const getVariantStyles = (): React.CSSProperties => {
-            const colorValue = getColorValue(theme, `${color}.500`);
-            const colorHover = getColorValue(theme, `${color}.600`);
-            const colorLight = getColorValue(theme, `${color}.50`);
-            const colorDark = getColorValue(theme, `${color}.700`);
-
             switch (color) {
                 case 'primary':
                     return {
-                        border: `1px solid ${colorValue}`,
+                        border: `1px solid ${theme.colors.primary["500"]}`,
                     };
                 case 'secondary':
                     return {
@@ -119,19 +131,145 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(({
         }
     }
 
+    const handleMouseEnter = (e: React.MouseEvent<HTMLInputElement>) => {
+        const target = e.currentTarget;
+
+        switch (color) {
+            case 'primary':
+                target.style.border = `1px solid ${theme.colors.primary["400"]}`;
+                break;
+            case 'secondary':
+                target.style.border = `1px solid ${theme.colors.secondary["500"]}`;
+                break;
+            case 'error':
+                target.style.border = `1px solid ${theme.colors.error["500"]}`;
+                break;
+            case 'warning':
+                target.style.border = `1px solid ${theme.colors.warning["700"]}`;
+                break;
+            case 'success':
+                target.style.border = `1px solid ${theme.colors.success["500"]}`;
+                break;
+        }
+    };
+
+    const handleMouseLeave = (e: React.MouseEvent<HTMLInputElement>) => {
+        const target = e.currentTarget;
+
+        switch (color) {
+            case 'primary':
+                target.style.border = `1px solid ${theme.colors.primary["500"]}`;
+                break;
+            case 'secondary':
+                target.style.border = `1px solid ${theme.colors.secondary["900"]}`;
+                break;
+            case 'error':
+                target.style.border = `1px solid ${theme.colors.error["700"]}`;
+                break;
+            case 'warning':
+                target.style.border = `1px solid ${theme.colors.warning["500"]}`;
+                break;
+            case 'success':
+                target.style.border = `1px solid ${theme.colors.success["700"]}`;
+                break;
+        }
+    };
+
+    const handleInputFocused = (e: React.FocusEvent<HTMLInputElement>)=> {
+        const target = e.currentTarget;
+
+        switch (color) {
+            case 'primary':
+                target.style.border = `2px solid ${theme.colors.primary["500"]}`;
+                break;
+            case 'secondary':
+                target.style.border = `2px solid ${theme.colors.secondary["900"]}`;
+                break;
+            case 'error':
+                target.style.border = `2px solid ${theme.colors.error["700"]}`;
+                break;
+            case 'warning':
+                target.style.border = `2px solid ${theme.colors.warning["500"]}`;
+                break;
+            case 'success':
+                target.style.border = `2px solid ${theme.colors.success["700"]}`;
+                break;
+        }
+    }
+
+    const handleInputBlurred = (e: React.FocusEvent<HTMLInputElement>)=> {
+        const target = e.currentTarget;
+
+        switch (color) {
+            case 'primary':
+                target.style.border = `1px solid ${theme.colors.primary["500"]}`;
+                break;
+            case 'secondary':
+                target.style.border = `1px solid ${theme.colors.secondary["900"]}`;
+                break;
+            case 'error':
+                target.style.border = `1px solid ${theme.colors.error["700"]}`;
+                break;
+            case 'warning':
+                target.style.border = `1px solid ${theme.colors.warning["500"]}`;
+                break;
+            case 'success':
+                target.style.border = `1px solid ${theme.colors.success["700"]}`;
+                break;
+        }
+    }
+
     return (
         <div
             style={{
                 display: 'flex',
                 flexDirection: 'column',
             }}
+            className={className}
         >
-            {label && <label>{label}</label>}
-            <input
-                ref={ref}
+            <div
                 style={getTextInputStyles()}
-                {...rest}
-            />
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onFocus={handleInputFocused}
+                onBlur={handleInputBlurred}
+            >
+                {
+                    label &&
+                    <label
+                        style={{
+                            position: 'absolute',
+                            fontSize: '12px',
+                            top: '-10px',
+                            backgroundColor: theme.colors.white,
+                            color: theme.colors.black,
+                        }}
+                    >
+                        {label}
+                    </label>
+                }
+                <input
+                    style={inputStyle}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    ref={ref}
+                    {...rest}
+                />
+                {loading && (
+                    <div
+                        style={{
+                            width: '16px',
+                            height: '16px',
+                            border: `2px solid ${theme.colors.black}`,
+                            borderTop: '2px solid transparent',
+                            borderRadius: '50%',
+                            animation: 'spin 1s linear infinite',
+                        }}
+                    />
+                )}
+            </div>
             {
                 error &&
                 <span
@@ -141,6 +279,17 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(({
                     }}
                 >
                     {errorText}
+                </span>
+            }
+            {
+                helperText && !error &&
+                <span
+                    style={{
+                        color: theme.colors.secondary["700"],
+                        fontSize: theme.typography.fontSize.xs,
+                    }}
+                >
+                    {helperText}
                 </span>
             }
         </div>

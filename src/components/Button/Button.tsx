@@ -6,6 +6,7 @@ import clsx from 'clsx';
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonColor = 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
+import '../../styles/animations.css';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -88,9 +89,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     // Color and variant styles
     const getVariantStyles = (): React.CSSProperties => {
       const colorValue = getColorValue(theme, `${color}.500`);
-      const colorHover = getColorValue(theme, `${color}.600`);
-      const colorLight = getColorValue(theme, `${color}.50`);
-      const colorDark = getColorValue(theme, `${color}.700`);
 
       switch (variant) {
         case 'primary':
@@ -143,7 +141,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     if (disabled || loading) return;
 
     const target = e.currentTarget;
-    const colorValue = getColorValue(theme, `${color}.500`);
     const colorHover = getColorValue(theme, `${color}.600`);
     const colorLight = getColorValue(theme, `${color}.50`);
 

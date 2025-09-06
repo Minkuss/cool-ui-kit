@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {ThemeProvider} from "@/theme/ThemeProvider";
 import {lightTheme} from "@/theme/themes";
-import {TextInput} from "./TextInput";
+import {TextInput} from "@/components";
 
 const meta: Meta<typeof TextInput> = {
     title: 'Components/TextInput',
@@ -34,6 +34,9 @@ const meta: Meta<typeof TextInput> = {
             options: ['primary', 'secondary', 'success', 'error', 'warning'],
             description: 'The color scheme of the button',
         },
+        placeholder: {
+            control: 'text',
+        }
     }
 };
 
