@@ -1,57 +1,49 @@
 # React UI Kit Template
 
-Готовый шаблон для создания UI Kit библиотеки на React TypeScript с поддержкой тем, Storybook и полной настройкой для разработки.
+Simple template for UI kit with components (still being replenished).
 
-## 🚀 Возможности
+## 🚀 Tech
 
-- **React 18** с TypeScript
-- **Система тем** аналогичная Material-UI
-- **Design Tokens** с использованием Style Dictionary
-- **Storybook** для демонстрации компонентов
-- **Jest + Testing Library** для тестирования
-- **Rollup** для сборки библиотеки
-- **ESLint** для линтинга кода
-- **Полная типизация** TypeScript
+- **React 18** with TypeScript
+- **Themes**
+- **Design Tokens** using Style Dictionary
+- **Storybook** for demo
+- **Jest + Testing Library** for tests
+- **Rollup** for build
 
-## 📦 Установка
+## 📦 Installation
 
 ```bash
 npm install
 ```
 
-## 🛠 Команды
+## 🛠 Commands
 
-### Разработка
+### Develop
 
 ```bash
-# Запуск Storybook для разработки компонентов
+# Run Storybook
 npm run storybook
 
-# Сборка библиотеки в режиме наблюдения
+# Lib build
 npm run build:watch
 ```
 
-### Сборка и тестирование
+### Build and testing
 
 ```bash
-# Сборка библиотеки для продакшена
+# Build
 npm run build
 
-# Запуск тестов
+# Tests
 npm run test
 
-# Запуск тестов в режиме наблюдения
+# Tests in watch mode
 npm run test:watch
 
-# Запуск тестов с покрытием
-npm run test:coverage
-
-# Линтинг кода
+# Code linting
 npm run lint
 
-# Исправление ошибок линтинга
+# Lint fix
 npm run lint:fix
-
-# Проверка типов TypeScript
-npm run type-check
 ```
