@@ -5,6 +5,7 @@ const terser = require('@rollup/plugin-terser').default;
 const peerDepsExternal = require('rollup-plugin-peer-deps-external');
 const dts = require('rollup-plugin-dts').default;
 const packageJson = require('./package.json');
+const postcss = require('rollup-plugin-postcss')
 
 module.exports = [
   {
@@ -23,6 +24,7 @@ module.exports = [
     ],
     plugins: [
       peerDepsExternal(),
+      postcss(),
       resolve({
         browser: true,
       }),
